@@ -2,6 +2,7 @@
 package com.app.hld.networking.rpc;
 
 import java.io.IOException;
+import java.rmi.NotBoundException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
@@ -14,6 +15,8 @@ public class Client {
 
             String response = stud.testPing();
             System.out.println("Response from server: " + response);
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {} catch (NotBoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
