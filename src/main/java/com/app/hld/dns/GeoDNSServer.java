@@ -3,6 +3,7 @@ package com.app.hld.dns;
 import org.xbill.DNS.*;
 import org.xbill.DNS.Record;
 
+import javax.xml.crypto.Data;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -44,6 +45,7 @@ public class GeoDNSServer {
     static class GeoDNSSRequestHandler implements Callable<Void> {
         private final DatagramSocket socket;
         private final DatagramPacket rqPacket;
+        private DatagramPacket rsPacket = null;
 
         public GeoDNSSRequestHandler(DatagramSocket socket, DatagramPacket rqPacket) {
             this.socket = socket;
@@ -66,7 +68,7 @@ public class GeoDNSServer {
                 Message response = buildResponse(query, qname, question, region);
                 byte[] data = response.toWire();
 
-                DatagramPacket rsPacket = new DatagramPacket(
+                rsPacket = new DatagramPacket(
                         data, data.length, rqPacket.getAddress(),
                         rqPacket.getPort()
                 );
