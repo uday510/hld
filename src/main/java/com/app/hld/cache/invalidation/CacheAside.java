@@ -1,4 +1,4 @@
-package com.app.hld.cache;
+package com.app.hld.cache.invalidation;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +13,7 @@ public class CacheAside {
             System.out.println("Cache hit!");
             return cache.get(id);
         }
+
         System.out.println("Cache miss!");
         String user = Database.getFromDB(id);
         cache.put(id, user);
@@ -24,4 +25,5 @@ public class CacheAside {
         System.out.println("requestId: " + requestId++ + " " + getUser(1));
         System.out.println("requestId: " + requestId + " " + getUser(1));
     }
+
 }

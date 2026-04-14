@@ -1,4 +1,4 @@
-package com.app.hld.cache;
+package com.app.hld.cache.invalidation;
 
 import java.util.HashMap;
 import java.util.Map;
