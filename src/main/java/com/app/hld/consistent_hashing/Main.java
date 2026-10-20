@@ -15,7 +15,7 @@ public class Main {
 
         consistentHashing.logRing();
 
-        System.out.println("--- Intial Rounting ---");
+        System.out.println("--- Initial Routing ---");
         for (String user : users) {
             System.out.println(user + " is routed to: " + consistentHashing.getNode(user));
         }
