@@ -1,5 +1,6 @@
 package com.app.hld.ratelimiter;
 
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -7,7 +8,7 @@ public class TokenBucket {
 
     private final double capacity;
     private final double refillRatePerSecond;
-    private final ConcurrentHashMap<String, Bucket> buckets;
+    private final Map<String, Bucket> buckets;
 
     public TokenBucket(double capacity, double refillRatePerSecond) {
         this.capacity = capacity;
@@ -25,7 +26,7 @@ public class TokenBucket {
             if (bucket == null) {
                 bucket = new Bucket(capacity, now);
             } else {
-                double elapsedSeconds = (now - bucket.lastRefillNanos) / 1_000_000_000.0;
+                double elapsedSeconds = (now - bucket.lastRefillNanos) / 1e9;
                 if (elapsedSeconds > 0) {
                     bucket.tokens = Math.min(capacity, bucket.tokens + (elapsedSeconds * refillRatePerSecond));
                     bucket.lastRefillNanos = now;
